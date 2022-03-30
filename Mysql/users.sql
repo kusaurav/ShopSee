@@ -5,8 +5,7 @@ create table users (
     userEmail varchar(30) not null,
     password varchar(20) not null,
     PRIMARY key(customerId),
-    UNIQUE KEY(userEmail),
-    constraint minim check (length(password)>=1)
+    UNIQUE KEY(userEmail)
 );
 
 create Table cart (
