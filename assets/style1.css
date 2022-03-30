@@ -1,0 +1,14 @@
+body {
+    background: linear-gradient(-45deg, #7f379b, #ffa26c);
+}
+
+.carousel .item {
+    height: 100px;
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100px;
+}
