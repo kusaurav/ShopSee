@@ -19,7 +19,8 @@ const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "saurav52270", //your password of mysql connection
-    database: "shopping" //Database name you want to use 
+    database: "shopping", //Database name you want to use 
+    multipleStatements: true
 });
 
 // connect to the database
@@ -168,7 +169,7 @@ app.post("/register", encoder, function(req, res) {
 
 app.post("/userdelete", encoder, function(req, res) {
 
-    connection.query("delete from users where customerId = ?;", userId, function(error, results, fields) {
+    connection.query("delete from users where customerId = ?; delete from cart where customerId = ?", userId, function(error, results, fields) {
         if (error) {
             res.send(`<h1> Can't Delete Your Account </h1>`);
             console.log(error);

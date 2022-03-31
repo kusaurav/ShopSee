@@ -9,9 +9,9 @@ create table users (
 );
 
 create Table cart (
-      customerId int not null,
-    productId int not null
-    
+    customerId int not null,
+    productId int not null,
+    FOREIGN KEY (customerId) REFERENCES users(customerId)
 );
 
 create table items (
@@ -20,4 +20,5 @@ create table items (
     price int not null,
     PRIMARY KEY(productId),
     UNIQUE KEY(product)
-)
+); 
+
