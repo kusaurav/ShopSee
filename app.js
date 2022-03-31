@@ -4,11 +4,14 @@ const bodyParser = require("body-parser");
 const { use } = require("express/lib/application");
 const encoder = bodyParser.urlencoded({ extended: false });
 
+
 const res = require("express/lib/response");
 const app = express();
 
 
 app.use("/assets", express.static("assets"));
+
+
 
 app.set('view engine', 'ejs');
 
@@ -30,10 +33,11 @@ app.get("/login", function(req, res) {
     res.render('login');
 })
 app.get("/", function(req, res) {
-    res.render('login');
+    res.render('register');
 })
 
 app.get("/loginUnsuccess", function(req, res) {
+
     res.render('loginUnsuccess');
 })
 
@@ -59,6 +63,7 @@ app.post("/login", encoder, function(req, res) {
 
             res.redirect("/home");
         } else {
+
             res.redirect("/loginUnsuccess");
 
         }
@@ -73,14 +78,14 @@ app.get("/home", function(req, res) {
 })
 app.get("/books", function(req, res) {
     connection.query("select * from items where type = \"book\"; ", function(error, results, fields) {
-        res.render('book', { results });
+        res.render('type', { results, username });
         console.log(results);
     })
 })
 app.get("/cart", function(req, res) {
     connection.query("select distinct * from cart left join items on items.productId=cart.productId where customerId = ?", userId, function(error, results, fields) {
         console.log(userId);
-        res.render('cart', { results, username });
+        res.render('cart', { results, username, userId });
         console.log(results);
     })
 })
@@ -89,7 +94,7 @@ app.get("/about", function(req, res) {
 })
 app.get("/mobile", function(req, res) {
     connection.query("select * from items where type = \"mobile\"; ", function(error, results, fields) {
-        res.render('book', { results });
+        res.render('type', { results, username, userId });
         console.log(results);
     })
 })
@@ -110,6 +115,34 @@ app.get('/home/(:productId)', function(req, res, next) {
         }
     })
 })
+app.get('/books/(:productId)', function(req, res, next) {
+    var productid = req.params.productId
+    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+
+        if (err) {
+            console.log(err);
+        } else {
+
+            console.log("success");
+            res.redirect("/books");
+        }
+    })
+})
+
+app.get('/mobile/(:productId)', function(req, res, next) {
+    var productid = req.params.productId
+    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+
+        if (err) {
+            console.log(err);
+        } else {
+
+            console.log("success");
+            res.redirect("/mobile");
+        }
+    })
+})
+
 
 app.post("/register", encoder, function(req, res) {
     var firstname = req.body.firstname;
