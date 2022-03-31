@@ -186,7 +186,7 @@ app.get("/logout", function(req, res) {
 })
 
 app.get("/accountdelete", function(req, res) {
-    res.render('accountdelete');
+    res.render('accountdelete', { username });
 })
 
 

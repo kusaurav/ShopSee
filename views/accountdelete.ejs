@@ -17,8 +17,10 @@
             <div></div>
         </div>
         <div class="form">
-            <h3>Account Deleted Successfully</h3>
-            <h1>Register</h1>
+            <h4 style="color: #0000ff;">Hey
+                <%- username%>, We'll miss you</h4>
+            <br>
+            <h2>Register</h2>
             <form action="/register" method="POST">
                 <input type="text" name="firstname" class="input-field" pattern=".{1,}" required title="1 characters minimum" placeholder="First Name" />
                 <input type="text" name="lastname" class="input-field" pattern=".{1,}" required title="1 characters minimum" placeholder="Last Name" />
