@@ -77,9 +77,9 @@ app.get("/home", function(req, res) {
         res.render('home', { results, userId, username });
     })
 })
-app.get("/books", function(req, res) {
+app.get("/book", function(req, res) {
     connection.query("select * from items where type = \"book\"; ", function(error, results, fields) {
-        res.render('type', { results, username });
+        res.render('type', { results, username, userId });
         console.log(results);
     })
 })
@@ -116,7 +116,7 @@ app.get('/home/(:productId)', function(req, res, next) {
         }
     })
 })
-app.get('/books/(:productId)', function(req, res, next) {
+app.get('/book/(:productId)', function(req, res, next) {
     var productid = req.params.productId
     connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
 
@@ -125,7 +125,7 @@ app.get('/books/(:productId)', function(req, res, next) {
         } else {
 
             console.log("success");
-            res.redirect("/books");
+            res.redirect("/book");
         }
     })
 })
@@ -169,7 +169,7 @@ app.post("/register", encoder, function(req, res) {
 
 app.post("/userdelete", encoder, function(req, res) {
 
-    connection.query("delete from users where customerId = ?; delete from cart where customerId = ?", userId, function(error, results, fields) {
+    connection.query("delete from users where customerId = ?; delete from cart where customerId = ?", [userId, userId], function(error, results, fields) {
         if (error) {
             res.send(`<h1> Can't Delete Your Account </h1>`);
             console.log(error);

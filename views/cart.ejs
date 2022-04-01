@@ -30,7 +30,7 @@
                 </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <form action="/books" method="GET">
+                                <form action="/book" method="GET">
                                     <input type="submit" class="btn" value="Books">
                                 </form>
                             </li>
@@ -74,7 +74,7 @@
         </div>
     </nav>
     <% if(results.length >0){%>
-        <table class="table">
+        <!-- <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -115,7 +115,27 @@
                             </td>
                         </tr>
             </tbody>
-        </table>
+        </table> -->
+        <div class="row container-fluid">
+            <% 
+         
+            for(var i = 0; i< results.length; i++) {
+               %>
+                <div class=" searchCard card my-2 mx-1  mb-3" style="width: 18rem;">
+                    <img class="card-img-top" src="assets/images/<%-results[i].productId%>.jpg" alt="" height="350px">
+                    <div class="  card-body">
+
+                        <h3 class="card-title">
+                            <%-results[i].product %>
+                        </h3>
+                        <h5>
+                            <%-results[i].price%>
+                        </h5>
+                        <a class="btn btn-success edit" href="/home/<%=results[i].productId%>">Add to Cart</a>
+                    </div>
+                </div>
+                <%}%>
+        </div>
         <% } else { %>
 
             <div style="text-align: center;  padding: 300px 0; font-weight: bold;">
