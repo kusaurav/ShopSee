@@ -114,12 +114,14 @@
                 <div class="  card-body">
 
                     <h3 class="card-title">
+
                         <%-results[i].product %>
                     </h3>
                     <h5>
-                        <%-results[i].price%>
+                        Rs.
+                        <%-results[i].price%>.00
                     </h5>
-                    <a class="btn btn-success edit" href="/<%-results[0].type%>/<%=results[i].productId%>">Add to Cart</a>
+                    <a class="btn btn-success edit" href="/<%-results[0].type%>/<%=results[i].productId%>" style="float: right;">Add to Cart</a>
                 </div>
             </div>
             <%}%>
