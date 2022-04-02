@@ -12,3 +12,12 @@ body {
     left: 0;
     height: 100px;
 }
+
+footer {
+    height: 60px;
+    color: white;
+    text-align: center;
+    padding: 15px 0px;
+    font-size: large;
+    background-color: black;
+}
