@@ -16,10 +16,10 @@ app.use("/assets", express.static("assets"));
 app.set('view engine', 'ejs');
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "saurav52270", //your password of mysql connection
-    database: "shopping", //Database name you want to use 
+    host: "sql6.freemysqlhosting.net",
+    user: "sql6483343",
+    password: "bGALVsq9AK", //your password of mysql connection
+    database: "sql6483343", //Database name you want to use 
     multipleStatements: true
 });
 
