@@ -1,12 +1,2 @@
-/.vscode
-/login.html
-/loginAfterReg.html
-/loginUnsuccess.html
-/logout.html
+
 /node_modules
-/package-lock.json
-/package.json
-/register.html
-/registerdelete.html
-/registeredAlready.html
-/Mysql
