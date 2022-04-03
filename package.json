@@ -14,7 +14,8 @@
     "main": "app.js",
 
     "scripts": {
-        "start": "node app.js"
+        "start": "node app.js",
+        "heroku-postbuild": "npm run build"
     },
     "author": "saurav",
     "license": "ISC"
