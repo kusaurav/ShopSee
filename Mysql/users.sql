@@ -8,18 +8,5 @@ create table users (
     UNIQUE KEY(userEmail)
 );
 
-create Table cart (
-    customerId int not null,
-    productId int not null,
-    FOREIGN KEY (customerId) REFERENCES users(customerId)
-);
 
-create table items (
-    productId int AUTO_INCREMENT not null,
-    product varchar(50) not null,
-    description VARCHAR(100),
-    price int not null,
-    PRIMARY KEY(productId),
-    UNIQUE KEY(product)
-); 
 
