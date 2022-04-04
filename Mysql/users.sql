@@ -16,7 +16,8 @@ create Table cart (
 
 create table items (
     productId int AUTO_INCREMENT not null,
-    product varchar(20) not null,
+    product varchar(50) not null,
+    description VARCHAR(100),
     price int not null,
     PRIMARY KEY(productId),
     UNIQUE KEY(product)
