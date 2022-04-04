@@ -21,3 +21,9 @@ footer {
     font-size: large;
     background-color: black;
 }
+
+@media only screen and (max-width: 800px) {
+    .w-100 {
+        height: 300px;
+    }
+}
