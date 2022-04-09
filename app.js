@@ -18,8 +18,8 @@ app.set('view engine', 'ejs');
 const connection = mysql.createConnection({
     host: "sql6.freemysqlhosting.net",
     user: "sql6483343",
-    password: "bGALVsq9AK", //your password of mysql connection
-    database: "sql6483343", //Database name you want to use 
+    password: "bGALVsq9AK", //Password of mysql connection
+    database: "sql6483343", //Database name 
     multipleStatements: true
 });
 
@@ -93,51 +93,57 @@ app.get("/home", function(req, res) {
 app.get("/book", function(req, res) {
     connection.query("select * from items where type = \"book\"; ", function(error, results, fields) {
         res.render('type', { results, username, userId });
-        console.log(results);
+
     })
+})
+app.get("/cart/checkout", function(req, res) {
+    res.render('checkout', { username, userId });
+})
+app.get("/recieved", function(req, res) {
+    res.render('recieved', { username });
 })
 app.get("/mobile", function(req, res) {
     connection.query("select * from items where type = \"mobile\"; ", function(error, results, fields) {
         res.render('type', { results, username, userId });
-        console.log(results);
+
     })
 })
 app.get("/laptop", function(req, res) {
     connection.query("select * from items where type = \"laptop\"; ", function(error, results, fields) {
         res.render('type', { results, username, userId });
-        console.log(results);
+
     })
 })
 app.get("/cloth", function(req, res) {
     connection.query("select * from items where type = \"cloth\"; ", function(error, results, fields) {
         res.render('type', { results, username, userId });
-        console.log(results);
+
     })
 })
 app.get("/shoes", function(req, res) {
     connection.query("select * from items where type = \"shoes\"; ", function(error, results, fields) {
         res.render('type', { results, username, userId });
-        console.log(results);
+
     })
 })
 app.get("/electronics", function(req, res) {
     connection.query("select * from items where type = \"electronics\"; ", function(error, results, fields) {
         res.render('type', { results, username, userId });
-        console.log(results);
+
     })
 })
 app.get("/sport", function(req, res) {
     connection.query("select * from items where type = \"sport\"; ", function(error, results, fields) {
         res.render('type', { results, username, userId });
-        console.log(results);
+
     })
 })
 
 app.get("/cart", function(req, res) {
     connection.query("select distinct * from cart left join items on items.productId=cart.productId where customerId = ?", userId, function(error, results, fields) {
-        console.log(userId);
+
         res.render('cart', { results, username, userId });
-        console.log(results);
+
     })
 })
 
@@ -153,7 +159,7 @@ app.get('/home/(:productId)', function(req, res, next) {
 
             console.log(err);
         } else {
-            console.log("success");
+
             res.redirect("/home");
         }
     })
@@ -166,7 +172,7 @@ app.get('/book/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/book");
         }
     })
@@ -182,7 +188,7 @@ app.get('/mobile/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/mobile");
         }
     })
@@ -196,7 +202,7 @@ app.get('/laptop/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/laptop");
         }
     })
@@ -210,7 +216,7 @@ app.get('/electronics/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/electronics");
         }
     })
@@ -224,7 +230,7 @@ app.get('/sport/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/sport");
         }
     })
@@ -238,7 +244,7 @@ app.get('/shoes/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/shoes");
         }
     })
@@ -251,7 +257,7 @@ app.get('/cloth/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/cloth");
         }
     })
@@ -265,7 +271,7 @@ app.get('/cart/(:productId)', function(req, res, next) {
             console.log(err);
         } else {
 
-            console.log("success");
+
             res.redirect("/cart");
         }
     })
@@ -287,6 +293,27 @@ app.post("/register", encoder, function(req, res) {
         } else {
 
             res.redirect("/loginAfterReg");
+        }
+        res.end();
+    })
+})
+
+app.post("/cart/checkout", encoder, function(req, res) {
+    var address = req.body.address;
+    var city = req.body.city;
+    var pincode = req.body.pincode;
+    var state = req.body.state;
+
+    connection.query("insert into address values (?,?,?,?,?);", [userId, address, city, pincode, state], function(error, results, fields) {
+
+        if (error) {
+            console.log(error);
+
+            res.send("Can't Process Your Request")
+
+        } else {
+
+            res.redirect("/recieved");
         }
         res.end();
     })
