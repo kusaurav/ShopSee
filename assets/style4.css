@@ -33,6 +33,7 @@ body {
 }
 
 .form h2 {
+    margin-top: 10px;
     margin-bottom: 15px;
 }
 
@@ -67,4 +68,15 @@ body {
 .btn2:hover {
     cursor: pointer;
     background-color: green;
+}
+
+@media only screen and (max-width: 800px) {
+    .form {
+        width: 100%;
+        padding: 10px 20px;
+    }
+    .btn2 {
+        width: 100%;
+        float: none;
+    }
 }

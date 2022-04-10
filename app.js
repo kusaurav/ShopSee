@@ -20,7 +20,6 @@ const connection = mysql.createConnection({
     user: "sql6483343",
     password: "bGALVsq9AK", //Password of mysql connection
     database: "sql6483343", //Database name 
-    multipleStatements: true
 });
 
 // connect to the database
@@ -97,7 +96,12 @@ app.get("/book", function(req, res) {
     })
 })
 app.get("/cart/checkout", function(req, res) {
-    res.render('checkout', { username, userId });
+    connection.query("select * from address where customerId =?", userId, function(error, results, fields) {
+        if (results.length) {
+            res.render('recieved', { username });
+        } else { res.render('checkout', { username, userId }); }
+    })
+
 })
 app.get("/recieved", function(req, res) {
     res.render('recieved', { username });
@@ -322,7 +326,7 @@ app.post("/cart/checkout", encoder, function(req, res) {
 
 app.post("/userdelete", encoder, function(req, res) {
 
-    connection.query("delete from users where customerId = ?; delete from cart where customerId = ?", [userId, userId], function(error, results, fields) {
+    connection.query("delete from users where customerId = ?;", userId, function(error, results, fields) {
         if (error) {
             res.send(`<h1> Can't Delete Your Account </h1>`);
             console.log(error);
