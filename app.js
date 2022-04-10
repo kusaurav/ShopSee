@@ -20,6 +20,7 @@ const connection = mysql.createConnection({
     user: "sql6483343",
     password: "bGALVsq9AK", //Password of mysql connection
     database: "sql6483343", //Database name 
+    multipleStatements: true
 });
 
 // connect to the database
