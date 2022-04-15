@@ -12,7 +12,6 @@
     "version": "1.0.0",
     "description": "Login system",
     "main": "app.js",
-
     "scripts": {
         "start": "node app.js",
         "heroku-postbuild": "npm run build"

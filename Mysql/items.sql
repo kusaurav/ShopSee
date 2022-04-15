@@ -3,6 +3,7 @@ create table items (
     product varchar(50) not null,
     description VARCHAR(100),
     price int not null,
+    type varchar(20),
     PRIMARY KEY(productId),
     UNIQUE KEY(product)
 ); 
