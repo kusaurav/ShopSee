@@ -171,7 +171,7 @@ app.get('/home/(:productId)', function(req, res, next) {
 })
 app.get('/book/(:productId)', function(req, res, next) {
     var productid = req.params.productId
-    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+    connection.query("insert into cart values (?,?);", [userId, productid], function(err, result, fields) {
 
         if (err) {
             console.log(err);
@@ -187,7 +187,7 @@ app.get('/book/(:productId)', function(req, res, next) {
 
 app.get('/mobile/(:productId)', function(req, res, next) {
     var productid = req.params.productId
-    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+    connection.query("insert into cart values (?,?);", [userId, productid], function(err, result, fields) {
 
         if (err) {
             console.log(err);
@@ -201,7 +201,7 @@ app.get('/mobile/(:productId)', function(req, res, next) {
 
 app.get('/laptop/(:productId)', function(req, res, next) {
     var productid = req.params.productId
-    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+    connection.query("insert into cart values (?,?);", [userId, productid], function(err, result, fields) {
 
         if (err) {
             console.log(err);
@@ -215,7 +215,7 @@ app.get('/laptop/(:productId)', function(req, res, next) {
 
 app.get('/electronics/(:productId)', function(req, res, next) {
     var productid = req.params.productId
-    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+    connection.query("insert into cart values (?,?);", [userId, productid], function(err, result, fields) {
 
         if (err) {
             console.log(err);
@@ -229,7 +229,7 @@ app.get('/electronics/(:productId)', function(req, res, next) {
 
 app.get('/sport/(:productId)', function(req, res, next) {
     var productid = req.params.productId
-    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+    connection.query("insert into cart values (?,?);", [userId, productid], function(err, result, fields) {
 
         if (err) {
             console.log(err);
@@ -243,7 +243,7 @@ app.get('/sport/(:productId)', function(req, res, next) {
 
 app.get('/shoes/(:productId)', function(req, res, next) {
     var productid = req.params.productId
-    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+    connection.query("insert into cart values (?,?);", [userId, productid], function(err, result, fields) {
 
         if (err) {
             console.log(err);
@@ -256,7 +256,7 @@ app.get('/shoes/(:productId)', function(req, res, next) {
 })
 app.get('/cloth/(:productId)', function(req, res, next) {
     var productid = req.params.productId
-    connection.query("insert into cart values (?,?);", [productid, userId], function(err, result, fields) {
+    connection.query("insert into cart values (?,?);", [userId, productid], function(err, result, fields) {
 
         if (err) {
             console.log(err);
