@@ -1,2 +1,2 @@
 # ShopSee
-[shopsee.herokuapp.com]
+[Link to Website](shopsee.herokuapp.com)
