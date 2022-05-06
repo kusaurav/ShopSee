@@ -16,11 +16,11 @@ app.use("/assets", express.static("assets"));
 app.set('view engine', 'ejs');
 
 const connection = mysql.createConnection({
-    host: "mysql-75827-0.cloudclusters.net",
-    user: "saurav",
-    password: "saurav52270", //Password of mysql connection
-    database: "shopping",
-    port: 15474
+    host: "sql6.freemysqlhosting.net",
+    user: "sql6483343",
+    password: "bGALVsq9AK", //Password of mysql connection
+    database: "sql6483343", //Database name 
+    multipleStatements: true
 });
 
 // connect to the database
