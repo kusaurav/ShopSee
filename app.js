@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { use } = require("express/lib/application");
 const encoder = bodyParser.urlencoded({ extended: false });
-
+const bcrypt = require("bcrypt");
 
 const res = require("express/lib/response");
 const app = express();
@@ -16,10 +16,10 @@ app.use("/assets", express.static("assets"));
 app.set('view engine', 'ejs');
 
 const connection = mysql.createConnection({
-    host: "sql6.freemysqlhosting.net",
-    user: "sql6483343",
-    password: "bGALVsq9AK", //Password of mysql connection
-    database: "sql6483343", //Database name 
+    host: "localhost",
+    user: "root",
+    password: "saurav52270", //Password of mysql connection
+    database: "shopsee", //Database name 
     multipleStatements: true
 });
 
@@ -66,24 +66,23 @@ app.get("/accountdelete", function(req, res) {
 
 var userId;
 var username;
-app.post("/login", encoder, function(req, res) {
+app.post("/login", encoder, async function(req, res) {
     var useremail = req.body.useremail;
     var password = req.body.password;
-
-    connection.query("select * from users where userEmail = ? and password = ?", [useremail, password], function(error, results, fields) {
+    connection.query("select * from users where userEmail = ?", [useremail], function(error, results, fields) {
         if (results.length > 0) {
             username = results[0].firstName.toUpperCase();
             userId = results[0].customerId;
-
-            res.redirect("/home");
+            var pass = results[0].password;
+            if (bcrypt.compareSync(password, pass))
+                res.redirect("/home");
         } else {
-
             res.redirect("/loginUnsuccess");
-
         }
         res.end();
     })
 })
+
 
 app.get("/home", function(req, res) {
     connection.query("select * from items", function(error, results, fields) {
@@ -282,13 +281,15 @@ app.get('/cart/(:productId)', function(req, res, next) {
     })
 })
 
-app.post("/register", encoder, function(req, res) {
+app.post("/register", encoder, async function(req, res) {
     var firstname = req.body.firstname;
-    var password = req.body.password;
+    //var password = req.body.password;
     var lastname = req.body.lastname;
     var useremail = req.body.useremail;
+    const hashPassword = bcrypt.hashSync(req.body.password, 10);
+    console.log(hashPassword);
 
-    connection.query("insert into users(firstName, lastName, userEmail, password) values (?,?,?,?);", [firstname, lastname, useremail, password], function(error, results, fields) {
+    connection.query("insert into users(firstName, lastName, userEmail, password) values (?,?,?,?);", [firstname, lastname, useremail, hashPassword], function(error, results, fields) {
 
         if (error) {
             console.log(error);
@@ -296,12 +297,12 @@ app.post("/register", encoder, function(req, res) {
             res.redirect("/registeredAlready");
 
         } else {
-
             res.redirect("/loginAfterReg");
         }
         res.end();
     })
 })
+
 
 app.post("/cart/checkout", encoder, function(req, res) {
     var address = req.body.address;
@@ -327,19 +328,15 @@ app.post("/cart/checkout", encoder, function(req, res) {
 
 app.post("/userdelete", encoder, function(req, res) {
 
-    connection.query("delete from users where customerId = ?;", userId, function(error, results, fields) {
-        if (error) {
-            res.send(`<h1> Can't Delete Your Account </h1>`);
-            console.log(error);
-        } else {
-            res.redirect("/accountdelete");
-        }
-        res.end();
+        connection.query("delete from users where customerId = ?;", userId, function(error, results, fields) {
+            if (error) {
+                res.send(`<h1> Can't Delete Your Account </h1>`);
+                console.log(error);
+            } else {
+                res.redirect("/accountdelete");
+            }
+            res.end();
+        })
     })
-})
-
-
-
-
-// set app port 
+    // set app port 
 app.listen(process.env.PORT || 3000);
