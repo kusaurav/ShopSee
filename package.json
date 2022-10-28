@@ -8,7 +8,8 @@
         "express-session": "^1.17.2",
         "mysql": "^2.18.1",
         "mysql2": "^2.3.3",
-        "nodemon": "^2.0.19"
+        "nodemailer": "^6.8.0",
+        "nodemon": "^2.0.20"
     },
     "name": "login",
     "version": "1.0.0",

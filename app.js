@@ -4,17 +4,20 @@ const bodyParser = require("body-parser");
 const { use } = require("express/lib/application");
 const encoder = bodyParser.urlencoded({ extended: false });
 const bcrypt = require("bcrypt");
-
+var nodemailer = require('nodemailer');
 const res = require("express/lib/response");
 const app = express();
 
 
 app.use("/assets", express.static("assets"));
-
-
-
 app.set('view engine', 'ejs');
-
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'sauravkumar52270@gmail.com',
+        pass: 'qeksqvyedpdvepqh'
+    }
+});
 const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -66,11 +69,13 @@ app.get("/accountdelete", function(req, res) {
 
 var userId;
 var username;
+var useremailformail;
 app.post("/login", encoder, async function(req, res) {
     var useremail = req.body.useremail;
     var password = req.body.password;
     connection.query("select * from users where userEmail = ?", [useremail], function(error, results, fields) {
         if (results.length > 0) {
+            useremailformail = useremail;
             username = results[0].firstName.toUpperCase();
             userId = results[0].customerId;
             var pass = results[0].password;
@@ -96,6 +101,20 @@ app.get("/book", function(req, res) {
     })
 })
 app.get("/cart/checkout", function(req, res) {
+    var mailOptions = {
+        from: 'sauravkumar52270@gmail.com',
+        to: useremailformail,
+        subject: 'Shopsee Order',
+        text: 'Thanks for shopping with us.'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
     connection.query("select * from address where customerId =?", userId, function(error, results, fields) {
         if (results.length) {
             res.render('recieved', { username });
@@ -287,8 +306,21 @@ app.post("/register", encoder, async function(req, res) {
     var lastname = req.body.lastname;
     var useremail = req.body.useremail;
     const hashPassword = bcrypt.hashSync(req.body.password, 10);
-    console.log(hashPassword);
+    //console.log(hashPassword);
+    var mailOptions = {
+        from: 'sauravkumar52270@gmail.com',
+        to: useremail,
+        subject: 'Shopsee registration',
+        text: 'Welcome to shopsee, explore the world at your home'
+    };
 
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
     connection.query("insert into users(firstName, lastName, userEmail, password) values (?,?,?,?);", [firstname, lastname, useremail, hashPassword], function(error, results, fields) {
 
         if (error) {
