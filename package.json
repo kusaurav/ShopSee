@@ -20,5 +20,8 @@
         "heroku-postbuild": "npm run build"
     },
     "author": "saurav",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "@types/express": "^4.17.14"
+    }
 }

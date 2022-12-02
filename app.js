@@ -21,7 +21,7 @@ var transporter = nodemailer.createTransport({
 const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "saurav52270", //Password of mysql connection
+    password: "sk123", //Password of mysql connection
     database: "shopsee", //Database name 
     multipleStatements: true
 });
@@ -370,5 +370,4 @@ app.post("/userdelete", encoder, function(req, res) {
             res.end();
         })
     })
-    // set app port 
 app.listen(process.env.PORT || 3000);
