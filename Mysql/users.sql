@@ -7,6 +7,3 @@ create table users (
     PRIMARY key(customerId),
     UNIQUE KEY(userEmail)
 );
-
-
-
